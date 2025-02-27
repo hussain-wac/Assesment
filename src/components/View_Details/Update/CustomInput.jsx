@@ -21,6 +21,9 @@ const CustomInput = ({ label, field, type = "text", validate, backendError, ...r
           const newValue = e.target.value;
           fieldApi.setValue(newValue);
           // Validate the field onChange using form values
+
+
+          console.log(firstName);
           const validationError = validate ? validate(newValue, values) : null;
           fieldApi.setError(validationError);  
         }}

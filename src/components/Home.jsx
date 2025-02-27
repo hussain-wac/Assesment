@@ -15,6 +15,8 @@ const Home = () => {
         </h2>
         <p className="card-text text-muted d-flex align-items-center gap-2">
           <Mail size={20} className="text-secondary" /> {user?.email}
+          {console.log
+          (user)}
         </p>
         <button
           onClick={logout}

@@ -15,6 +15,7 @@ const CustomFileInput = ({ label, field, validate, backendError, ...rest }) => {
       </label>
       <div className="position-relative">
         <label
+
           htmlFor={field}
           className="d-flex align-items-center gap-2 border border-primary rounded px-3 py-2 bg-light cursor-pointer"
           style={{ width: "fit-content", cursor: "pointer" }}
