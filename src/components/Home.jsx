@@ -17,6 +17,7 @@ const Home = () => {
           <Mail size={20} className="text-secondary" /> {user?.email}
           {console.log
           (user)}
+          <h1>hdsad</h1>
         </p>
         <button
           onClick={logout}
