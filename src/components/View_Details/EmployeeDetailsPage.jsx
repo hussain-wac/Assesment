@@ -22,7 +22,8 @@ const EmployeeDetailsPage = () => {
   if (isLoading) {
     return (
       <div className="min-vh-100 d-flex justify-content-center align-items-center">
-        <Loader2 size={40} className="text-primary animate-spin" />
+        <Loader2 size={40} className="text-primary animate-spin" />z
+
       </div>
     );
   }
@@ -70,7 +71,7 @@ const EmployeeDetailsPage = () => {
             <InfoSection title="Banking Information" items={getBankingInfo(details)} />
             <InfoSection title="Emergency Contact" items={getEmergencyInfo(details)} />
             <InfoSection title="System Information" items={getSystemInfo(details)} />
-            <ToastContainer />z
+            <ToastContainer />
           </div>
         </div>
       </div>
