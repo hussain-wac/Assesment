@@ -16,6 +16,7 @@ const Home = () => {
         <p className="card-text text-muted d-flex align-items-center gap-2">
           <Mail size={20} className="text-secondary" /> {user?.email}
         </p>
+        <h1 className="display-6 mt-4">Employee List</h1>
         <button
           onClick={logout}
           className="btn w-40 ms-2 btn-danger mt-3 d-flex align-items-center gap-2 p-2"
