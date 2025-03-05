@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { SplitIcon, ListIcon } from 'lucide-react';
-
 const useInstallmentLogic = () => {
   const [recommendedAmount, setRecommendedAmount] = useState('');
   const [installmentCount, setInstallmentCount] = useState('');
@@ -9,6 +7,7 @@ const useInstallmentLogic = () => {
   const [dueDates, setDueDates] = useState([]);
   const [mergedRows, setMergedRows] = useState({});
   const [splitRows, setSplitRows] = useState({});
+  const [selectedDates, setSelectedDates] = useState([]);
 
   useEffect(() => {
     calculateInstallments();
@@ -101,7 +100,7 @@ const useInstallmentLogic = () => {
 
     selectedInstallments.forEach(index => {
       const installment = installments[index];
-      const splitCount = 2; // For simplicity, let's split into 2 parts
+      const splitCount = 2;
       const splitAmount = parseFloat(installment.amount) / splitCount;
 
       const newInstallments = [...installments];
@@ -143,12 +142,50 @@ const useInstallmentLogic = () => {
   const handleDateChange = (index, date) => {
     const newDueDates = [...dueDates];
     newDueDates[index] = date;
+
+    // Check if this is the first time setting the date for this installment
+    if (dueDates[index] === undefined || dueDates[index].toDateString() === new Date().toDateString()) {
+      // Auto-fill subsequent dates
+      const selectedDate = new Date(date);
+      for (let i = index + 1; i < newDueDates.length; i++) {
+        selectedDate.setMonth(selectedDate.getMonth() + 1);
+        newDueDates[i] = new Date(selectedDate);
+      }
+    }
+
     setDueDates(newDueDates);
+
+    // Update selectedDates state
+    const updatedSelectedDates = [...selectedDates];
+    if (!selectedDates.includes(date.toDateString())) {
+      updatedSelectedDates.push(date.toDateString());
+      setSelectedDates(updatedSelectedDates);
+    }
   };
 
-  const validateDate = (date) => {
+  const validateDate = (date, index) => {
     const today = new Date();
-    return date >= today;
+    const selectedDate = new Date(date);
+
+    // Check if date is before today
+    if (selectedDate < today) {
+      return false;
+    }
+
+    // Check if date is already selected
+    if (selectedDates.includes(selectedDate.toDateString())) {
+      return false;
+    }
+
+    // Check if date is sequential
+    if (index > 0) {
+      const previousDate = new Date(dueDates[index - 1]);
+      if (selectedDate < previousDate) {
+        return false;
+      }
+    }
+
+    return true;
   };
 
   return {
@@ -168,7 +205,8 @@ const useInstallmentLogic = () => {
     handleDateChange,
     splitInstallments,
     revertSplit,
-    validateDate
+    validateDate,
+    selectedDates
   };
 };
 

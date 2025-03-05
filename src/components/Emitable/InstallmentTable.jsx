@@ -12,7 +12,8 @@ const InstallmentTable = ({
   handleDateChange,
   splitInstallments,
   revertSplit,
-  validateDate
+  validateDate,
+  selectedDates
 }) => (
   <table className="table table-bordered mt-3">
     <thead>
@@ -68,10 +69,11 @@ const InstallmentTable = ({
               onChange={(date) => handleDateChange(index, date)}
               className="form-control"
               dateFormat="dd/MM/yyyy"
-              disabled={installment.isMerged || installment.isSplit}
+              disabled={installment.isMerged}
               minDate={new Date()}
               shouldCloseOnSelect={false}
-              filterDate={validateDate}
+              filterDate={(date) => validateDate(date, index)}
+              excludeDates={selectedDates.map(dateStr => new Date(dateStr))}
             />
           </td>
         </tr>

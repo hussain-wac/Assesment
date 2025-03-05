@@ -13,14 +13,13 @@ const EmiForm = () => {
     setSelectedInstallments,
     installments,
     dueDates,
-    mergedRows,
-    splitRows,
     mergeInstallments,
     unmergeInstallments,
     handleDateChange,
     splitInstallments,
     revertSplit,
-    validateDate
+    validateDate,
+    selectedDates
   } = useInstallmentLogic();
 
   return (
@@ -43,13 +42,14 @@ const EmiForm = () => {
         splitInstallments={splitInstallments}
         revertSplit={revertSplit}
         validateDate={validateDate}
+        selectedDates={selectedDates}
       />
       <div className="mt-3">
         <button type="button" className="btn btn-primary me-2" onClick={mergeInstallments}>
-          <span>Merge  </span>
+          <span>Merge Selected </span>
         </button>
         <button type="button" className="btn btn-primary" onClick={splitInstallments}>
-          <span>Split  </span>
+          <span>Split Selected </span>
         </button>
       </div>
     </div>
