@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { SplitIcon, ListIcon } from 'lucide-react';
+
 const useInstallmentLogic = () => {
   const [recommendedAmount, setRecommendedAmount] = useState('');
   const [installmentCount, setInstallmentCount] = useState('');
@@ -93,8 +95,8 @@ const useInstallmentLogic = () => {
   };
 
   const splitInstallments = () => {
-    if (selectedInstallments.length === 0) {
-      alert('Please select at least one installment to split.');
+    if (selectedInstallments.length !== 1) {
+      alert('Please select exactly one installment to split.');
       return;
     }
 
@@ -143,7 +145,7 @@ const useInstallmentLogic = () => {
     const newDueDates = [...dueDates];
     newDueDates[index] = date;
 
-    // Check if this is the first time setting the date for this installment
+
     if (dueDates[index] === undefined || dueDates[index].toDateString() === new Date().toDateString()) {
       // Auto-fill subsequent dates
       const selectedDate = new Date(date);

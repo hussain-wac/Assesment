@@ -15,19 +15,20 @@ const InstallmentTable = ({
   validateDate,
   selectedDates
 }) => (
-  <table className="table table-bordered mt-3">
-    <thead>
+  <table className="w-full text-sm text-left text-gray-900">
+    <thead className="text-xs text-gray-700 uppercase bg-gray-50">
       <tr>
-        <th></th>
-        <th>Install No</th>
-        <th>Amount</th>
-        <th>Due Date</th>
+        <th className="p-3">#</th>
+        <th className="p-3">Installment Number</th>
+        <th className="p-3">Amount</th>
+        <th className="p-3">Due Date</th>
+        <th className="p-3">Actions</th>
       </tr>
     </thead>
     <tbody>
       {installments.map((installment, index) => (
-        <tr key={index}>
-          <td>
+        <tr key={index} className="bg-white border-b hover:bg-gray-50">
+          <td className="p-3">
             <input
               type="checkbox"
               checked={selectedInstallments.includes(index)}
@@ -41,40 +42,44 @@ const InstallmentTable = ({
                 setSelectedInstallments(newSelected);
               }}
               disabled={installment.isMerged || installment.isSplit}
+              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
             />
-            {installment.isMerged && (
-              <button 
-                className="btn btn-sm btn-secondary ms-2"
-                style={{ padding: '2px 8px', fontSize: '10px' }}
-                onClick={() => unmergeInstallments(installment.mergedKey)}
-              >
-                <SplitIcon className="me-1" size={12} />
-              </button>
-            )}
-            {installment.isSplit && (
-              <button
-                className="btn btn-sm btn-secondary ms-2"
-                style={{ padding: '2px 8px', fontSize: '10px' }}
-                onClick={() => revertSplit(installment.originalKey)}
-              >
-                <ListIcon className="me-1" size={12} />
-              </button>
-            )}
           </td>
-          <td>{installment.installmentNo}</td>
-          <td>₹{installment.amount}</td>
-          <td>
+          <td className="p-3">{installment.installmentNo}</td>
+          <td className="p-3">₹{installment.amount}</td>
+          <td className="p-3">
             <DatePicker
-              selected={dueDates[index] || new Date()}
+              selected={dueDates[index] || null}
               onChange={(date) => handleDateChange(index, date)}
-              className="form-control"
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
               dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
               disabled={installment.isMerged}
               minDate={new Date()}
               shouldCloseOnSelect={false}
               filterDate={(date) => validateDate(date, index)}
               excludeDates={selectedDates.map(dateStr => new Date(dateStr))}
             />
+          </td>
+          <td className="p-3">
+            {installment.isMerged && (
+              <button 
+                className="flex items-center p-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                onClick={() => unmergeInstallments(installment.mergedKey)}
+              >
+                <SplitIcon className="w-4 h-4 mr-2" />
+                Unmerge
+              </button>
+            )}
+            {installment.isSplit && (
+              <button
+                className="flex items-center p-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+                onClick={() => revertSplit(installment.originalKey)}
+              >
+                <ListIcon className="w-4 h-4 mr-2" />
+                Revert Split
+              </button>
+            )}
           </td>
         </tr>
       ))}
