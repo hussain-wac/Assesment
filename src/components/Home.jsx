@@ -3,6 +3,7 @@ import useLogout from "../hooks/useLogout";
 import { userState } from "../jotai/userState"; 
 import { useAtomValue } from "jotai"; 
 import { User, Mail, LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { logout, isLoggingOut } = useLogout();
@@ -15,6 +16,11 @@ const Home = () => {
         </h2>
         <p className="card-text text-muted d-flex align-items-center gap-2">
           <Mail size={20} className="text-secondary" /> {user?.email}
+<<<<<<< HEAD
+=======
+          {console.log
+          (user)}
+>>>>>>> c4717f3 (new emi)
         </p>
         <h1 className="display-6 mt-4">Employee List</h1>
         <button
@@ -33,6 +39,9 @@ const Home = () => {
             </>
           )}
         </button>
+              <Link to="/emipage" className="btn btn-primary mt-3 w-40 ms-2 d-flex align-items-center gap-2 p-2">
+          Emitable
+              </Link>
         <div className="mt-4">
           <EmployeeTable />
         </div>
