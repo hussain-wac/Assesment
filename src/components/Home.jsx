@@ -16,11 +16,6 @@ const Home = () => {
         </h2>
         <p className="card-text text-muted d-flex align-items-center gap-2">
           <Mail size={20} className="text-secondary" /> {user?.email}
-<<<<<<< HEAD
-=======
-          {console.log
-          (user)}
->>>>>>> c4717f3 (new emi)
         </p>
         <h1 className="display-6 mt-4">Employee List</h1>
         <button
